@@ -1,13 +1,21 @@
+import { motion, AnimatePresence } from "framer-motion";
+
 const NotificationTray = ({
     notificationContent,
     handleDeleteNotification,
   }) => {
     return (
-      <div className="notification__tray">
+      <motion.div className="notification__tray" initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }} exit={{ opacity: 0, x: "-12rem" }}>
         <ul>
+        <AnimatePresence>
           {notificationContent.map((content) => {
             return (
-              <li key={content}>
+              <motion.li key={content} initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              exit={{ x: "-12rem", opacity: 0 }}
+          layout>
                 <span>{content}</span>
                 <span
                   className="clear__button"
@@ -31,11 +39,12 @@ const NotificationTray = ({
                     />
                   </svg>
                 </span>
-              </li>
+              </motion.li>
             );
           })}
+        </AnimatePresence>
         </ul>
-      </div>
+      </motion.div>
     );
   };
   export default NotificationTray;
